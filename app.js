@@ -18,7 +18,7 @@ app.post('/signup',Authenticate.signUp);
 app.post('/signin',Authenticate.signIn);
 app.post('/addNewGroup',FinanceServices.addNewGroup);
 app.post('/getGroupsByUser', FinanceServices.getGroupsByUserName);
-app.post('/addNewTransaction',utils.isTokenValid,Transactions.addNewTransaction);
+app.post('/getAllUsers',FinanceServices.getAllUsers);
 app.get('/getAllTransactions',utils.isTokenValid,Transactions.getAllTransactions);
 app.post('/updateTransaction',utils.isTokenValid,Transactions.updateTransaction);
 app.delete('/deleteTransaction',utils.isTokenValid,Transactions.deleteTransaction);

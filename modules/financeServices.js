@@ -1,7 +1,7 @@
-path        = require('path'),
-models      = require(path.resolve(__dirname, "../models/schema.js")),
-utils       = require(path.resolve(__dirname, "./utilities")),
-Group = models.Group
+var path = require('path'),
+    models = require(path.resolve(__dirname, "../models/schema.js")),
+    utils = require(path.resolve(__dirname, "./utilities")),
+    Group = models.Group
 
 var addNewGroup = function (req, res) {
     console.log(req.body);
