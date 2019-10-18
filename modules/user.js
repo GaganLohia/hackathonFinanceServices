@@ -15,7 +15,7 @@ var path = require('path'),
                 };
                 utils.sendResponse(res, 200, true, '', params);
             }
-        }).select('userName');
+        }).select('username');
     };
     
     module.exports = {
