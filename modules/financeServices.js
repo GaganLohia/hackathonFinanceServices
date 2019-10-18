@@ -26,13 +26,13 @@ var getGroupsByUserName = function(req,res){
     var userName = req.body.userName;
     Group.find({
        usersName : userName
-    }, function (err, transactions) {
+    }, function (err, Groups) {
         if (err) {
             console.log(err);
             utils.sendResponse(res, 500, false, 'Please try again later.');
         } else {
             var params = {
-                transactions: transactions
+                Groups: Groups
             };
             utils.sendResponse(res, 200, true, '', params);
         }
