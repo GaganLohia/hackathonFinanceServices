@@ -6,6 +6,7 @@ var app             = require('express')(),
     Transactions    = require(path.resolve(__dirname,"./modules/transaction.js")),
     InitDb          = require(path.resolve(__dirname,"./modules/initDb.js")),
     utils           = require(path.resolve(__dirname, "./modules/utilities" )),
+    FinanceServices = require(path.resolve(__dirname, "./modules/financeServices")),
     port            = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -15,6 +16,8 @@ app.use(morgan('dev'));
 
 app.post('/signup',Authenticate.signUp);
 app.post('/signin',Authenticate.signIn);
+app.post('/addNewGroup',FinanceServices.addNewGroup);
+app.post('/getGroupsByUser', FinanceServices.getGroupsByUserName);
 app.post('/addNewTransaction',utils.isTokenValid,Transactions.addNewTransaction);
 app.get('/getAllTransactions',utils.isTokenValid,Transactions.getAllTransactions);
 app.post('/updateTransaction',utils.isTokenValid,Transactions.updateTransaction);
