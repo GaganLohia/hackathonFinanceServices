@@ -5,7 +5,7 @@ var path = require('path'),
 
 var addNewGroup = function (req, res) {
     console.log(req.body);
-    var usersName           = req.body.memberNames;
+    var usersName           = req.body.memberNames.split('~');
     var groupName           = req.body.groupName;
     var userName            = req.body.userName;
     usersName.push(userName);
