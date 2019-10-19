@@ -28,9 +28,6 @@ var addOffers = (req , res) => {
     });
 }
 
-var rad = (x)=> {
-    return (x * Math.PI )/180;
-}
 var getOffersByLocation = (req, res) =>{
 // get all the offers near me 
     var latitude = req.body.latitude;
@@ -51,10 +48,10 @@ var getOffersByLocation = (req, res) =>{
               var lat = offer.latitude;
               var lon = offer.longitude;
               var Radius = 6378137; // Earth?s mean radius in meter
-              var dLat = this.rad(lat- latitude);
-              var dLong = this.rad(lon - longitude);
+              var dLat = ((lat- latitude)* Math.PI )/180;
+              var dLong = ((lon - longitude)* Math.PI )/180;
               var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-              Math.cos(this.rad(latitude)) * Math.cos(this.rad(lat)) *
+              Math.cos((latitude* Math.PI )/180) * Math.cos((lat* Math.PI )/180) *
               Math.sin(dLong / 2) * Math.sin(dLong / 2);
               var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
              var distance = Radius * c;
