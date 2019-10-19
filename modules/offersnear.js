@@ -63,7 +63,7 @@ var getoffersByName = ( req, res) => {
     var placeName = req.body.placeName;
     console.log();
     // calculate the all the lat / long near me
-    offer.find({ placeName : placeName}
+    offer.find({ placeName : /placeName/i}
     , function (err, offers) {
         if (err) {
             console.log(err);
