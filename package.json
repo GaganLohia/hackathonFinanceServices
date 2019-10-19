@@ -17,6 +17,7 @@
     "mongoose-unique-validator": "^2.0.2",
     "morgan": "^1.9.1",
     "path": "^0.12.7",
+    "twilio": "^3.36.0",
     "yoredis": "^0.2.0"
   }
 }
