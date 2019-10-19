@@ -17,7 +17,7 @@ var path = require('path'),
             }
         }).select('username');
     };
-    
+
     var getAccountInfo = function(req,res){
         var userName = req.body.userName;
         User.findOne({
@@ -29,7 +29,7 @@ var path = require('path'),
                 utils.sendResponse(res, 500, false, 'Please try again later.');
             } else {
                 var params = {
-                    Users: Users
+                    User: Users
                 };
                 utils.sendResponse(res, 200, true, '', params);
             }
