@@ -1,8 +1,8 @@
 var path = require('path'),
     models = require(path.resolve(__dirname, "../models/schema.js")),
     utils = require(path.resolve(__dirname, "./utilities")),
-    Group = models.Group
-
+    Group = models.Group,
+    FinanceTransaction = models.FinanceTransaction
 var addNewGroup = function (req, res) {
     console.log(req.body);
     var usersName           = req.body.memberNames.split('~');
@@ -38,8 +38,36 @@ var getGroupsByUserName = function(req,res){
         }
     });
 };
+var makeTransactions = function(req,res){
+    var transactionName = req.body.transactionName,
+        transactionType = req.body.transactionType,
+        groupName       = req.body.groupName,
+        amount          = req.body.amount,
+        usersName       = req.body.memberNames.split('~'),
+        userName        = req.body.userName,
+        payeeUserName   = req.body.payeeUserName;
+        usersName.push(userName);
+
+    var trans   = new FinanceTransaction({
+        transactionName : transactionName,
+        transactionType : transactionType,
+        usersName       : usersName,
+        amount          : amount,
+        payeeUserName   : payeeUserName,
+        groupName       : groupName,
+        userName        : userName
+    });
+    trans.save(function (err) {
+        if (err) {
+            utils.sendResponse(res, 500, false, 'Please try again later.');
+        } else {
+            utils.sendResponse(res, 200, true, 'Transaction added successfully.',{id:trans._id});
+        }
+    });
+}
 
 module.exports = {
     addNewGroup : addNewGroup,
-    getGroupsByUserName : getGroupsByUserName
+    getGroupsByUserName : getGroupsByUserName,
+    makeTransactions    : makeTransactions 
 };
