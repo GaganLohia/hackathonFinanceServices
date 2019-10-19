@@ -2,17 +2,15 @@ var path        = require('path'),
     mongoose    = require('mongoose'),
     models      = require(path.resolve(__dirname, "../models/schema.js")),
     utils       = require(path.resolve(__dirname, "./utilities")),
-    offer       = models.Offer;
+    Offer       = models.Offer;
 
 var addOffers = (req , res) => {   
-    var offerId            = mongoose.Types.ObjectId();
     var placeName          = req.body.placeName;
     var latitude           = req.body.latitude;
     var longitude          = req.body.longitude;
     var offerCategory      = req.body.offerCategory;
-    console.log(offerId + "" + placeName);
-    var newOffer = new offer({
-        offerId     : mongoose.Types.ObjectId(offerId),
+    console.log(placeName);
+    var newOffer = new Offer({
         placeName   : placeName,
         latitude    : latitude,
         longitude   : longitude,
@@ -34,7 +32,7 @@ var getOffersByLocation = (req, res) =>{
     var longitude = req.body.longitude;
     console.log();
     // calculate the all the lat / long near me
-    offer.findAll({}
+    Offer.find({}
     , function (err, offers) {
         if (err) {
             console.log(err);
@@ -46,13 +44,23 @@ var getOffersByLocation = (req, res) =>{
             function myFunction(offer) {
               var lat = offer.latitude;
               var lon = offer.longitude;
-              var radius = Math.abs(lat - lon);
-              if(radius < 100){
-                  nearBy.push(offer);
-              }
+              var Radius = 6378137; // Earth?s mean radius in meter
+            //   var dLat = this.rad(lat- latitude);
+            //   var dLong = this.rad(lon - longitude);
+            //   var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            //   Math.cos(this.rad(latitude)) * Math.cos(this.rad(lat)) *
+            //   Math.sin(dLong / 2) * Math.sin(dLong / 2);
+            //   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            //  var distance = Radius * c;
+            // //converting to miles
+            //  distance=distance * 0.00062137;
+            //  distance=Math.round(distance,2);    
+            //   if(distance < 100){
+            //       nearBy.push(offer);
+            //   }
             }
             var params = {
-                offers: nearBy
+                offers: offers
             };
             utils.sendResponse(res, 200, true, '', params);
         }
@@ -63,7 +71,7 @@ var getoffersByName = ( req, res) => {
     var placeName = req.body.placeName;
     console.log();
     // calculate the all the lat / long near me
-    offer.find({ placeName : /placeName/i}
+    Offer.find({ placeName : { $regex : '.*' + placeName + '.*'}}
     , function (err, offers) {
         if (err) {
             console.log(err);

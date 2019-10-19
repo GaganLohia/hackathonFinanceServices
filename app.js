@@ -8,8 +8,9 @@ var app             = require('express')(),
     utils           = require(path.resolve(__dirname, "./modules/utilities" )),
     FinanceServices = require(path.resolve(__dirname, "./modules/financeServices.js")),
     User            = require(path.resolve(__dirname, "./modules/user.js")),
-    port            = process.env.PORT || 3000;
-   // offersNear      = require(path.resolve(__dirname,"./modules/offersnear.js"))
+    port            = process.env.PORT || 3002;
+    offersNear      = require(path.resolve(__dirname,"./modules/offersnear.js"))
+    require('dotenv').config()
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -26,9 +27,9 @@ app.get('/getAccountInfo', User.getAccountInfo)
 app.get('/getAllTransactions',utils.isTokenValid,Transactions.getAllTransactions);
 app.post('/updateTransaction',utils.isTokenValid,Transactions.updateTransaction);
 app.delete('/deleteTransaction',utils.isTokenValid,Transactions.deleteTransaction);
-// app.get('/addOffers', offersNear.addOffers);
-// app.get('/getoffersByName',offersNear.getoffersByName);
-// app.get('/getOffersByLocation' , offersNear.getOffersByLocation);
+ app.post('/addOffers', offersNear.addOffers);
+ app.post('/getoffersByName',offersNear.getoffersByName);
+ app.post('/getOffersByLocation' , offersNear.getOffersByLocation);
 app.get('/', (req,res)=>{
     res.send('This is Api End-point for Expense Manager');
 });
