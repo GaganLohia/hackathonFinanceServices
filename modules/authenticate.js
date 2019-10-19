@@ -35,9 +35,11 @@ var signIn = function(req, res){
 var signUp = function(req,res){
     var userName = req.body.username;
     var password = req.body.password;
+    var phoneNumber = req.body.phonenumber;
     var newUser = new User({
         username : userName,
-        password : password
+        password : password,
+        phoneNumber : phoneNumber
     });
     newUser.save(function(err){
         if(err){

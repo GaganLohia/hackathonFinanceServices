@@ -12,7 +12,8 @@ var transactionSchema = new Schema({
 var userSchema = new Schema({ 
     username                : { type: String, required: true, unique: true }, 
     password                : { type: String, required: true },
-    accountBalance          : { type: Number, default : 1100000}
+    accountBalance          : { type: Number, default : 1100000},
+    phoneNumber             : { type: Number, required: true}
 });
 var groupSchema = new Schema({
     usersName : [{type: String}],

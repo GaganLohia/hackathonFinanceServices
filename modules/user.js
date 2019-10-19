@@ -18,6 +18,25 @@ var path = require('path'),
         }).select('username');
     };
     
+    var getAccountInfo = function(req,res){
+        var userName = req.body.userName;
+        User.findOne({
+            username : userName
+        }, "accountBalance phoneNumber username",
+            function (err, Users) {
+            if (err) {
+                console.log(err);
+                utils.sendResponse(res, 500, false, 'Please try again later.');
+            } else {
+                var params = {
+                    Users: Users
+                };
+                utils.sendResponse(res, 200, true, '', params);
+            }
+        });
+    }; 
+    
     module.exports = {
-        getAllUsers : getAllUsers
+        getAllUsers : getAllUsers,
+        getAccountInfo : getAccountInfo
     };
