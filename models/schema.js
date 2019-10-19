@@ -31,10 +31,21 @@ var financeTransaction = new Schema({
 var requestSchema = new Schema({
     
 });
+
+var offer = new Schema({
+    offerId         : [{ type: mongoose.Schema.Types.ObjectId}],
+    placeName       : { type: String, required: true },
+    latitude        : { type: Number , required : true},
+    longitude       : { type: Number, required: true},
+    createdTime     : { type: Date, default:Date.now()},
+    offerCategory   : { type: String, required: true },
+});
+
 userSchema.plugin(uniqueValidator);
 module.exports = {
     User                    : mongoose.model('User', userSchema),
     Transaction             : mongoose.model('Transaction', transactionSchema),
     Group                   : mongoose.model('Group', groupSchema),
     FinanceTransaction      : mongoose.model('FinanceTransaction', financeTransaction)
+    offer                   : mongoose.model('Offer', offer)
 };
