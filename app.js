@@ -1,4 +1,5 @@
 var app             = require('express')(),
+    env             = require('dotenv').config(),
     bodyParser      = require('body-parser'),
     morgan          = require('morgan'),
     path            = require('path'),
@@ -10,7 +11,7 @@ var app             = require('express')(),
     User            = require(path.resolve(__dirname, "./modules/user.js")),
     port            = process.env.PORT || 3002;
     offersNear      = require(path.resolve(__dirname,"./modules/offersnear.js"))
-    require('dotenv').config()
+    
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
