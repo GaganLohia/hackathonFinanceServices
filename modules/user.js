@@ -19,7 +19,7 @@ var path = require('path'),
     };
 
     var getAccountInfo = function(req,res){
-        var userName = req.userName;
+        var userName = req.query.userName;
         User.findOne({
             username : userName
         }, "accountBalance phoneNumber username",
