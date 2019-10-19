@@ -26,6 +26,9 @@ var addOffers = (req , res) => {
     });
 }
 
+var rad = (x)=> {
+    return (x * Math.PI )/180;
+}
 var getOffersByLocation = (req, res) =>{
 // get all the offers near me 
     var latitude = req.body.latitude;
@@ -42,25 +45,26 @@ var getOffersByLocation = (req, res) =>{
             var nearBy = [];
             offers.forEach(myFunction);        
             function myFunction(offer) {
+
               var lat = offer.latitude;
               var lon = offer.longitude;
               var Radius = 6378137; // Earth?s mean radius in meter
-            //   var dLat = this.rad(lat- latitude);
-            //   var dLong = this.rad(lon - longitude);
-            //   var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            //   Math.cos(this.rad(latitude)) * Math.cos(this.rad(lat)) *
-            //   Math.sin(dLong / 2) * Math.sin(dLong / 2);
-            //   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            //  var distance = Radius * c;
-            // //converting to miles
-            //  distance=distance * 0.00062137;
-            //  distance=Math.round(distance,2);    
-            //   if(distance < 100){
-            //       nearBy.push(offer);
-            //   }
+              var dLat = this.rad(lat- latitude);
+              var dLong = this.rad(lon - longitude);
+              var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+              Math.cos(this.rad(latitude)) * Math.cos(this.rad(lat)) *
+              Math.sin(dLong / 2) * Math.sin(dLong / 2);
+              var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+             var distance = Radius * c;
+            //converting to miles
+             distance=distance * 0.00062137;
+             distance=Math.round(distance,2);    
+              if(distance < 100){
+                  nearBy.push(offer);
+              }
             }
             var params = {
-                offers: offers
+                offers: nearBy
             };
             utils.sendResponse(res, 200, true, '', params);
         }
