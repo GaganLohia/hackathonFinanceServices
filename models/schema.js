@@ -46,6 +46,6 @@ module.exports = {
     User                    : mongoose.model('User', userSchema),
     Transaction             : mongoose.model('Transaction', transactionSchema),
     Group                   : mongoose.model('Group', groupSchema),
-    FinanceTransaction      : mongoose.model('FinanceTransaction', financeTransaction)
+    FinanceTransaction      : mongoose.model('FinanceTransaction', financeTransaction),
     offer                   : mongoose.model('Offer', offer)
 };
