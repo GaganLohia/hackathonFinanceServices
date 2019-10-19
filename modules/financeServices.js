@@ -38,6 +38,24 @@ var getGroupsByUserName = function(req,res){
         }
     });
 };
+
+var getAllTransactions = function(req,res){
+    var userName = req.query.userName;
+    FinanceTransaction.find({
+        usersName : userName
+     }, function (err, Transactions) {
+         if (err) {
+             console.log(err);
+             utils.sendResponse(res, 500, false, 'Please try again later.');
+         } else {
+             var params = {
+                 Transactions: Transactions
+             };
+             utils.sendResponse(res, 200, true, '', params);
+         }
+     });
+};
+
 var makeTransactions = function(req,res){
     var transactionName = req.body.transactionName,
         transactionType = req.body.transactionType,
@@ -78,5 +96,6 @@ var sendMessage = function(to,username,value,groupName,transactionName){
 module.exports = {
     addNewGroup : addNewGroup,
     getGroupsByUserName : getGroupsByUserName,
-    makeTransactions    : makeTransactions 
+    makeTransactions    : makeTransactions,
+    getAllTransactions  : getAllTransactions
 };

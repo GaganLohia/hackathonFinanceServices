@@ -1,4 +1,5 @@
 var app             = require('express')(),
+    env             = require('dotenv').config(),
     bodyParser      = require('body-parser'),
     morgan          = require('morgan'),
     path            = require('path'),
@@ -10,7 +11,7 @@ var app             = require('express')(),
     User            = require(path.resolve(__dirname, "./modules/user.js")),
     port            = process.env.PORT || 3034;
     offersNear      = require(path.resolve(__dirname,"./modules/offersnear.js"))
-    require('dotenv').config()
+    
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -22,9 +23,10 @@ app.post('/signin',Authenticate.signIn);
 app.post('/addNewGroup',FinanceServices.addNewGroup);
 app.post('/getGroupsByUser', FinanceServices.getGroupsByUserName);
 app.post('/makeTransaction', FinanceServices.makeTransactions);
+app.get('/getAllTransactions',FinanceServices.getAllTransactions);
 app.get('/getAllUsers',User.getAllUsers);
 app.get('/getAccountInfo', User.getAccountInfo)
-app.get('/getAllTransactions',utils.isTokenValid,Transactions.getAllTransactions);
+
 app.post('/updateTransaction',utils.isTokenValid,Transactions.updateTransaction);
 app.delete('/deleteTransaction',utils.isTokenValid,Transactions.deleteTransaction);
  app.post('/addOffers', offersNear.addOffers);
