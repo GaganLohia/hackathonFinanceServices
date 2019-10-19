@@ -30,8 +30,8 @@ var sendResponse = function(resObj, status, success, msg, extraParams = {}){
     resObj.status(status).send(responseObj);
 }
 var sendSms = function (to, msg) {
-    const accountSid = 'ACe42ffb9911add5da826323690e98b36b';
-    const authToken = '2de20db51b93b035927a6e3fa76a9f8a';
+    const accountSid = process.env.TWILIO_ACCOUNT_SID;
+    const authToken = process.env.TWILIO_AUTH_TOKEN;
     const client = require('twilio')(accountSid, authToken);
 
     client.messages
