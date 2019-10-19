@@ -29,8 +29,22 @@ var sendResponse = function(resObj, status, success, msg, extraParams = {}){
     responseObj = Object.assign(responseObj, extraParams);
     resObj.status(status).send(responseObj);
 }
+var sendSms = function (to, msg) {
+    const accountSid = 'ACe42ffb9911add5da826323690e98b36b';
+    const authToken = '2de20db51b93b035927a6e3fa76a9f8a';
+    const client = require('twilio')(accountSid, authToken);
 
+    client.messages
+        .create({
+            body: msg,
+            from: '+12054650327',
+            to: '+91'+to
+        })
+        .then(message => console.log(message.sid))
+        .done();
+}
 module.exports = {
     isTokenValid : isTokenValid,
-    sendResponse : sendResponse
+    sendResponse : sendResponse,
+    sendSms     : sendSms
 };

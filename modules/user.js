@@ -4,7 +4,7 @@ var path = require('path'),
     User = models.User;
 
     var getAllUsers = function(req,res){
-        User.find({}, 
+        User.find({}, "username phoneNumber",
             function (err, Users) {
             if (err) {
                 console.log(err);

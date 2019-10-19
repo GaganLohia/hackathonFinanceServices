@@ -44,6 +44,7 @@ var makeTransactions = function(req,res){
         groupName       = req.body.groupName,
         amount          = req.body.amount,
         usersName       = req.body.memberNames.split('~'),
+        usersNumber     = req.body.memberNumbers.split('~'),
         userName        = req.body.userName,
         payeeUserName   = req.body.payeeUserName;
         usersName.push(userName);
@@ -61,9 +62,17 @@ var makeTransactions = function(req,res){
         if (err) {
             utils.sendResponse(res, 500, false, 'Please try again later.');
         } else {
+            for(var i =0; i<usersNumber.length; i++){
+                sendMessage(usersNumber[i], usersName[i], (amount*1.0)/usersNumber.length, groupName, transactionName);
+            }
             utils.sendResponse(res, 200, true, 'Transaction added successfully.',{id:trans._id});
         }
     });
+}
+
+var sendMessage = function(to,username,value,groupName,transactionName){
+    var msg = "Hi " + username +", Your accout has been debited by Rs."+value + " for transaction: "+ transactionName +" in group: "+ groupName;
+    utils.sendSms(to,msg);
 }
 
 module.exports = {

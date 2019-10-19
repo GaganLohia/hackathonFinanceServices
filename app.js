@@ -8,7 +8,7 @@ var app             = require('express')(),
     utils           = require(path.resolve(__dirname, "./modules/utilities" )),
     FinanceServices = require(path.resolve(__dirname, "./modules/financeServices.js")),
     User            = require(path.resolve(__dirname, "./modules/user.js")),
-    port            = process.env.PORT || 3000;
+    port            = process.env.PORT || 3001;
    // offersNear      = require(path.resolve(__dirname,"./modules/offersnear.js"))
 
 app.use(bodyParser.urlencoded({ extended: false }));
