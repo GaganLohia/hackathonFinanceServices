@@ -17,8 +17,17 @@ var userSchema = new Schema({
 });
 var groupSchema = new Schema({
     usersName : [{type: String}],
-    groupName : {type : String},
+    groupName : {type : String,unique: true},
 });
+var financeTransaction = new Schema({
+    transactionName : {type:String,required: true},
+    transactionType : {type:String,required: true},
+    usersName       : [{type:String}],
+    amount          : {type:Number,required:true},
+    payeeUserName   : {type:String,required:true},
+    groupName       : {type:String,required:true},
+    userName        : {type:String,required:true}
+})
 var requestSchema = new Schema({
     
 });
@@ -26,5 +35,6 @@ userSchema.plugin(uniqueValidator);
 module.exports = {
     User                    : mongoose.model('User', userSchema),
     Transaction             : mongoose.model('Transaction', transactionSchema),
-    Group                   : mongoose.model('Group', groupSchema)
+    Group                   : mongoose.model('Group', groupSchema),
+    FinanceTransaction      : mongoose.model('FinanceTransaction', financeTransaction)
 };
