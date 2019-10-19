@@ -37,6 +37,7 @@ var requestSchema = new Schema({
      latitude        : { type: Number , required : true},
      longitude       : { type: Number, required: true},
      createdTime     : { type: Date, default:Date.now()},
+     offers          : [{type : String}],
      offerCategory   : { type: String, required: true },
  });
 

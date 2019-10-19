@@ -9,12 +9,14 @@ var addOffers = (req , res) => {
     var latitude           = req.body.latitude;
     var longitude          = req.body.longitude;
     var offerCategory      = req.body.offerCategory;
+    var offers             = req.body.offers;
     console.log(placeName);
     var newOffer = new Offer({
         placeName   : placeName,
         latitude    : latitude,
         longitude   : longitude,
         createdAt   : Date.now(),
+        offers      : offers,
         offerCategory : offerCategory
     });
     newOffer.save(function (err) {
