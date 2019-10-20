@@ -2,7 +2,8 @@ var path = require('path'),
     models = require(path.resolve(__dirname, "../models/schema.js")),
     utils = require(path.resolve(__dirname, "./utilities")),
     Group = models.Group,
-    FinanceTransaction = models.FinanceTransaction
+    FinanceTransaction = models.FinanceTransaction,
+    User = models.User
 var addNewGroup = function (req, res) {
     console.log(req.body);
     var usersName           = req.body.memberNames.split('~');
@@ -83,6 +84,37 @@ var makeTransactions = function(req,res){
             for(var i =0; i<usersNumber.length; i++){
                 sendMessage(usersNumber[i], usersName[i], (amount*1.0)/usersNumber.length, groupName, transactionName);
             }
+            User.find({
+                username : {$in:usersName}
+            },function(err,Users){
+                if(err){
+
+                }else{
+                    var amountToBeDeducted = (amount*1.0)/usersNumber.length;
+                    for(var i=0; i<Users.length; i++){
+                        User.updateOne({_id : Users[i]._id},{
+                            $set: {
+                                "username":Users[i].username,
+	                            "password":Users[i].password,
+                                "phonenumber" :Users[i].phonenumber,
+                                "accountBalance":Users[i].accountBalance - amountToBeDeducted
+                            }
+                        },function (err, obj) {
+                            if (err) {
+                                console.log(err);
+                                utils.sendResponse(res, 500, false, 'Please try again later.');
+                            }
+                            else {
+                                //utils.sendResponse(res, 200, true, 'User updated successfully.');
+                            }
+                        }
+                            )
+                    }
+                    console.log(Users);
+                }
+            }
+            
+            );
             utils.sendResponse(res, 200, true, 'Transaction added successfully.',{id:trans._id});
         }
     });

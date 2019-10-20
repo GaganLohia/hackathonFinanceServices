@@ -9,7 +9,7 @@ var app             = require('express')(),
     utils           = require(path.resolve(__dirname, "./modules/utilities" )),
     FinanceServices = require(path.resolve(__dirname, "./modules/financeServices.js")),
     User            = require(path.resolve(__dirname, "./modules/user.js")),
-    port            = process.env.PORT || 3034;
+    port            = process.env.PORT || 5006;
     offersNear      = require(path.resolve(__dirname,"./modules/offersnear.js"))
     
 
